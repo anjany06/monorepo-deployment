@@ -1,14 +1,17 @@
-import express from "express";
-import { client } from "@repo/db/client";
+const express = require("express");
+const { client } = require("@repo/db/client");
+
+type Request = import("express").Request;
+type Response = import("express").Response;
 
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
     res.send("Hi there");
 })
 
-app.post("/signup", async (req, res) => {
+app.post("/signup", async (req: Request, res: Response) => {
     const username = req.body.username;
     const password = req.body.password;
     const user = await client.user.create({
