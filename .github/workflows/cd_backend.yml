@@ -25,4 +25,4 @@ jobs:
           context: .
           file: ./docker/Dockerfile.backend
           push: true
-          tags: anjany/http-server:${{ github.sha }} ## Every image have a unique version or the tag which is the commit sha(commit sha means the no display with every commit) here
+          tags: anjany06/http-server:${{ github.sha }} ## Every image have a unique version or the tag which is the commit sha(commit sha means the no display with every commit) here
