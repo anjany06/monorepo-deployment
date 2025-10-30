@@ -2,7 +2,6 @@ FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
-# Build argument for DATABASE_URL
 ARG DATABASE_URL
 
 # Install pnpm globally
@@ -14,16 +13,12 @@ COPY . .
 # Install dependencies
 RUN pnpm install 
 
-# Generate Prisma client with DATABASE_URL
-RUN DATABASE_URL=${DATABASE_URL} pnpm run db:generate
+# Generate Prisma client
+RUN pnpm run db:generate
 
-# Build the web app with DATABASE_URL available
+# Build the web app specifically
 RUN DATABASE_URL=${DATABASE_URL} pnpm run build --filter=web
 
 EXPOSE 3000
 
-# Set environment variable for runtime
-ENV DATABASE_URL=${DATABASE_URL}
-
 CMD ["pnpm", "run", "start:web"]
-
