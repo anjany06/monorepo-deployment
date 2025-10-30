@@ -22,3 +22,19 @@ jobs:
           file: ./docker/Dockerfile.ws
           push: true
           tags: anjany06/ws-server:${{ github.sha }} ## Every image have a unique version or the tag which is the commit sha(commit sha means the no display with every commit) here
+
+      - name: SSH and Deploy # SSH into the VM and deploy the new image
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: 13.60.32.217
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo systemctl daemon-reload
+            sudo systemctl start docker
+            sudo systemctl enable docker
+            sudo usermod -aG docker ubuntu
+            sudo docker pull anjany06/ws-server:${{ github.sha }}
+            sudo docker stop ws-server || true
+            sudo docker rm ws-server || true
+            sudo docker run -d --name ws-server -p 3002:3002 anjany06/ws-server:${{ github.sha }}
