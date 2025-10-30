@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
-    res.send("Hi there");
+    res.send("Hello world from HTTP server!");
 })
 
 app.post("/signup", async (req: Request, res: Response) => {
@@ -27,5 +27,5 @@ app.post("/signup", async (req: Request, res: Response) => {
 })
 
 app.listen(3002, () => {
-    console.log("HTTP server listening on port 3002");
+    console.log("listening on port 3002");
 });
