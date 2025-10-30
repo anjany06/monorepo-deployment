@@ -1,0 +1,24 @@
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Copy source code
+COPY . .
+
+# Install dependencies
+RUN pnpm install
+
+# Generate Prisma client
+RUN pnpm run db:generate
+
+# Build the http-server specifically
+RUN pnpm run build --filter=http-server
+
+EXPOSE 3002
+
+CMD ["pnpm", "run", "start:http-server"]
+
+
