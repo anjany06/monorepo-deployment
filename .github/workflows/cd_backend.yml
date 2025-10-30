@@ -26,3 +26,18 @@ jobs:
           file: ./docker/Dockerfile.backend
           push: true
           tags: anjany06/http-server:${{ github.sha }} ## Every image have a unique version or the tag which is the commit sha(commit sha means the no display with every commit) here
+
+      - name: SSH and Deploy # SSH into the VM and deploy the new image
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: 16.16.128.145
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            sudo usermod -aG docker ubuntu
+            sudo systemctl start docker
+            sudo systemctl enable docker
+            docker pull anjany06/http-server:${{ github.sha }}
+            docker stop http-server || true
+            docker rm http-server || true
+            docker run -d --name http-server -p 3002:3002 anjany06/http-server:${{ github.sha }}

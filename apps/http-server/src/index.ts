@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
-    res.send("Hello world from HTTP server!");
+    res.send("Hello world from backend server");
 })
 
 app.post("/signup", async (req: Request, res: Response) => {
