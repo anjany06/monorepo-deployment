@@ -37,4 +37,4 @@ jobs:
             sudo docker pull anjany06/ws-server:${{ github.sha }}
             sudo docker stop ws-server || true
             sudo docker rm ws-server || true
-            sudo docker run -d --name ws-server -p 3002:3002 anjany06/ws-server:${{ github.sha }}
+            sudo docker run -d --name ws-server -p 3001:3001 anjany06/ws-server:${{ github.sha }}
