@@ -30,7 +30,7 @@ jobs:
       - name: SSH and Deploy # SSH into the VM and deploy the new image
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: 13.60.32.217
+          host: 13.51.178.238
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
